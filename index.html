@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Julius Caesar — Study Arena</title>
+  <title>Study Arena — Exam Prep</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <h1 class="logo" onclick="goHome()">⚔️ Julius Caesar <span>Study Arena</span></h1>
+    <h1 class="logo" onclick="subjectHome()">📚 Study Arena<span id="subjectLabel"></span></h1>
     <div class="topbar-progress">
       <span id="masteryLabel">0 / 20 mastered</span>
       <div class="bar"><div id="masteryBar" class="bar-fill"></div></div>
@@ -18,11 +18,13 @@
   <main id="app"></main>
 
   <footer class="footer">
-    <span>Grade 8 L&amp;L exam prep · 20 key passages</span>
+    <span>Grade 8 exam prep · English &amp; Science</span>
     <button class="link-btn" onclick="resetProgress()">Reset progress</button>
   </footer>
 
   <script src="data.js"></script>
+  <script src="data-science.js"></script>
   <script src="app.js"></script>
+  <script src="science.js"></script>
 </body>
 </html>

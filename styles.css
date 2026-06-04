@@ -173,6 +173,19 @@ select, .btn {
   font-family: system-ui, sans-serif;
 }
 .tag.act { background: var(--burgundy); color: var(--parchment); }
+.tag.verified { background: #d8efd8; color: var(--green); border: 1px solid var(--green); }
+.tag.possible { background: #fbe9d0; color: #9a5a00; border: 1px solid #c98a2e; }
+.tag.level { background: #e6e0f2; color: #4b3b7a; border: 1px solid #8a78c0; }
+code { background: var(--parchment-dk); padding: 0.05rem 0.3rem; border-radius: 4px; font-size: 0.85em; }
+
+/* ---- Diagram checklist ---- */
+.lib-item.diag.checked { border-left: 4px solid var(--green); background: #eef7ee; }
+.diag-head { display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer; font-size: 1.05rem; }
+.diag-head input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; flex: none; cursor: pointer; }
+.diag-body { margin: 0.5rem 0 0 1.75rem; }
+.diag-body ul { margin: 0.2rem 0; padding-left: 1.1rem; }
+.diag-body li { margin: 0.2rem 0; font-size: 0.92rem; }
+.diag-tip { font-size: 0.85rem; color: #6b5d4a; background: var(--parchment); padding: 0.5rem 0.7rem; border-radius: 7px; margin: 0.5rem 0 0; }
 
 .quote {
   font-size: 1.15rem;

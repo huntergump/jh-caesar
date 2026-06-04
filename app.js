@@ -22,18 +22,66 @@ progress.mistakes = progress.mistakes || {};
 
 function markMastered(id) { progress.mastered[id] = true; delete progress.mistakes[id]; saveProgress(progress); updateMastery(); }
 function markMistake(id) { progress.mistakes[id] = true; saveProgress(progress); }
-function updateMastery() {
-  const n = Object.keys(progress.mastered).length;
-  const total = PASSAGES.length;
-  document.getElementById("masteryLabel").textContent = `${n} / ${total} mastered`;
-  document.getElementById("masteryBar").style.width = (100 * n / total) + "%";
+
+/* ---------- shared topbar helpers (used by every subject) ---------- */
+let currentSubject = null; // null = subject picker, 'english', 'science'
+function setMastery(n, total) {
+  const label = document.getElementById("masteryLabel");
+  const bar = document.getElementById("masteryBar");
+  if (!label || !bar) return;
+  label.textContent = total ? `${n} / ${total} mastered` : "";
+  bar.style.width = total ? (100 * n / total) + "%" : "0%";
+}
+function setSubjectLabel(name) {
+  const el = document.getElementById("subjectLabel");
+  if (el) el.textContent = name ? " · " + name : "";
+}
+
+function updateMastery() { // English
+  setMastery(Object.keys(progress.mastered).length, PASSAGES.length);
 }
 function resetProgress() {
-  if (!confirm("Reset all progress, scores, and mastered passages?")) return;
+  if (currentSubject === "science" && typeof sciResetProgress === "function") return sciResetProgress();
+  if (currentSubject === "english") {
+    if (!confirm("Reset your progress for Julius Caesar (English)?")) return;
+    progress = { mastered: {}, mistakes: {} };
+    saveProgress(progress);
+    updateMastery();
+    return goHome();
+  }
+  // On the subject picker: reset everything.
+  if (!confirm("Reset ALL progress for every subject?")) return;
   progress = { mastered: {}, mistakes: {} };
   saveProgress(progress);
-  updateMastery();
-  goHome();
+  if (typeof sciResetAll === "function") sciResetAll();
+  subjectHome();
+}
+
+/* ============================================================
+   SUBJECT PICKER (top-level home)
+   ============================================================ */
+function subjectHome() {
+  currentSubject = null;
+  setSubjectLabel("");
+  const engN = Object.keys(progress.mastered).length;
+  const sciN = (typeof sciMasteredCount === "function") ? sciMasteredCount() : 0;
+  const sciTot = (typeof sciTotalCount === "function") ? sciTotalCount() : 0;
+  setMastery(engN + sciN, PASSAGES.length + sciTot);
+  app.innerHTML = `
+    <section class="intro">
+      <h2>Choose a subject</h2>
+      <p>Pick what you're studying — each subject has its own set of mini-games.</p>
+    </section>
+    <div class="tiles">
+      <button class="tile" style="border-left-color:var(--burgundy)" onclick="goHome()">
+        <div class="emoji">⚔️</div><h3>English — Julius Caesar</h3>
+        <p>20 key passages · who said it, figurative language, significance.
+           <br><b>${engN}/${PASSAGES.length}</b> mastered</p></button>
+      <button class="tile" style="border-left-color:var(--green)" onclick="sciHome()">
+        <div class="emoji">🔬</div><h3>Science — Grade 8 Exam</h3>
+        <p>Body systems, static electricity, chemistry, lab &amp; data.
+           <br><b>${sciN}/${sciTot}</b> mastered</p></button>
+    </div>`;
 }
 
 /* ---------- helpers ---------- */
@@ -73,7 +121,10 @@ function questionsOfType(type) {
 /* ---------- routing ---------- */
 function goHome() {
   reseed();
+  currentSubject = "english";
+  setSubjectLabel("Julius Caesar");
   app.innerHTML = `
+    <div class="controls"><button class="btn" onclick="subjectHome()">← All subjects</button></div>
     <section class="intro">
       <h2>Master the 20 key passages</h2>
       <p>For every quotation, know <b>who</b> said it, <b>what</b> was happening,
@@ -541,4 +592,4 @@ document.addEventListener("keydown", e => {
 });
 
 /* ---------- boot ---------- */
-goHome();
+subjectHome();
