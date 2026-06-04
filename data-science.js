@@ -51,6 +51,61 @@ const SCIENCE_LEVELS = {
   "7-8": { label: "Level 7–8", onExam: false, desc: "Describe knowledge; solve unfamiliar problems. NOT on the June exam." }
 };
 
+/* Per-question MYP level overrides (hand-tuned for balance & accuracy).
+   A question's level = its own `level` field → this table → the command-term
+   default (COMMAND_LEVEL in science.js: Recall=1-2, State/Solve/Apply=3-4,
+   Outline/Interpret=5-6). Edit any entry to re-band a question; delete an
+   entry to fall back to the command default.
+   Guideline used:
+     1-2  single-fact recall, lists, sequences, naming a part/value
+     3-4  stating/defining knowledge; applying one rule in a familiar case
+     5-6  explaining "why", comparing, multi-step reasoning, interpreting data
+   Current spread with this table: ~23 (L1-2) · 44 (L3-4) · 20 (L5-6). */
+const SCIENCE_LEVEL_OVERRIDES = {
+  // ---- Body Systems ----
+  "body-peristalsis": "1-2",
+  "body-large-intestine": "1-2",
+  "body-arteries": "1-2",
+  "body-veins": "1-2",
+  "body-chambers": "1-2",
+  "body-valves": "1-2",
+  "body-pharynx-shared": "3-4",   // really "identify the shared part"
+  "body-small-intestine": "5-6",  // explain WHY it is longest
+  "body-stretchy-organ": "5-6",   // cross-organism comparison
+  "body-alveoli": "5-6",          // explain WHY good for gas exchange
+  "body-surface-area": "5-6",     // system-connection reasoning
+  // ---- Static Electricity ----
+  "static-charges": "1-2",
+  "static-location": "1-2",
+  "static-neutral": "1-2",
+  "static-like-unlike": "1-2",
+  "static-contact": "1-2",
+  "static-why-negative": "3-4",   // basic gain-electrons fact
+  "static-why-positive": "3-4",
+  "static-grounding": "3-4",
+  "static-tribo-read": "5-6",     // solve using the series
+  "static-induction": "5-6",      // explain polarization / no transfer
+  "static-repulsion-rule": "5-6", // "no neutrality in repulsion" judgement
+  "static-neutral-attract": "5-6",
+  "static-ground-hand": "5-6",    // multi-step final charges
+  "static-attract-nocontact": "5-6", // ambiguity reasoning
+  // ---- Chemistry ----
+  "chem-atomic-number": "1-2",
+  "chem-metals-location": "1-2",
+  "chem-periods-groups": "1-2",
+  "chem-group-props": "1-2",
+  "chem-mol-prefix": "1-2",
+  "chem-metal-props": "3-4",      // recall of properties
+  "chem-mono-rule": "5-6",        // explain WHY (naming reasoning)
+  "chem-bond-type": "5-6",        // conceptual transfer-vs-share contrast
+  // ---- Lab & Data ----
+  "lab-hypothesis": "1-2",        // recall the if/then/because format
+  "lab-procedure": "3-4",
+  "lab-materials": "3-4",
+  "lab-error-parts": "3-4",
+  "lab-error-example": "5-6"      // evaluate/justify a fix
+};
+
 const SCIENCE_QUESTIONS = [
   /* ================= TOPIC 1: BODY SYSTEMS ================= */
   {

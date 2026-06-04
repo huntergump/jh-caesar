@@ -58,7 +58,11 @@ function sciStatusBadge(status) {
 // MYP level band derived from the command term (per the Criterion A rubric),
 // unless a question sets its own `level`.
 const COMMAND_LEVEL = { "Recall": "1-2", "State": "3-4", "Solve": "3-4", "Apply": "3-4", "Interpret": "5-6", "Outline": "5-6" };
-function sciQuestionLevel(q) { return q.level || COMMAND_LEVEL[q.command] || "3-4"; }
+function sciQuestionLevel(q) {
+  return q.level
+    || (typeof SCIENCE_LEVEL_OVERRIDES !== "undefined" && SCIENCE_LEVEL_OVERRIDES[q.id])
+    || COMMAND_LEVEL[q.command] || "3-4";
+}
 function sciLevelBadge(q) { return `<span class="tag level">MYP ${sciQuestionLevel(q)}</span>`; }
 
 /* ============================================================
