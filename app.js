@@ -243,7 +243,7 @@ function renderQuestion() {
       </div>
     </div>
     <div class="controls">
-      <span style="font-size:.85rem;color:#6b5d4a">Question ${idx + 1} of ${items.length}</span>
+      <span style="font-size:.85rem;color:var(--muted)">Question ${idx + 1} of ${items.length}</span>
       <span style="flex:1"></span>
       <button class="btn" onclick="goHome()">Menu</button>
     </div>
@@ -370,7 +370,7 @@ function renderFlashcard() {
       <div class="scoreboard">Card ${flash.idx + 1} of ${flash.items.length}</div>
     </div>
     <div class="controls">
-      <span style="font-size:.85rem;color:#6b5d4a">Tap card to flip</span>
+      <span style="font-size:.85rem;color:var(--muted)">Tap card to flip</span>
       <span style="flex:1"></span>
       <button class="btn" onclick="goHome()">Menu</button>
     </div>
@@ -469,7 +469,7 @@ function renderExamQuestion() {
       <div class="timer" id="examTimer">⏱️ ${m}:${s}</div>
     </div>
     <div class="controls">
-      <span style="font-size:.85rem;color:#6b5d4a">Question ${idx + 1} of ${items.length} · Score ${session.score}</span>
+      <span style="font-size:.85rem;color:var(--muted)">Question ${idx + 1} of ${items.length} · Score ${session.score}</span>
       <span style="flex:1"></span>
       <button class="btn" onclick="quitExam()">Quit</button>
     </div>

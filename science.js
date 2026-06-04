@@ -90,7 +90,7 @@ function sciHome() {
           ${sciSettings.includePossible ? "Switch to: Verified only" : "Switch to: Include possible"}
         </button>
       </div>
-      <p style="font-size:.78rem;color:#6b5d4a;margin:.5rem 0 0">
+      <p style="font-size:.78rem;color:var(--muted);margin:.5rem 0 0">
         ⚠ "Possible" questions are drafted from the standard curriculum — confirm them against your notes.
         Mark items <code>verified</code> in <code>data-science.js</code> as you check them.</p>
     </div>
@@ -171,7 +171,7 @@ function sciLevelMenu() {
         const info = SCIENCE_LEVELS[band];
         const n = sciPool(null, band).length;
         return `<button class="tile" onclick="sciStartMC(null,'${band}')" ${n ? "" : "disabled"}
-          style="border-left-color:${info.onExam ? "var(--gold)" : "#bbb"}">
+          style="border-left-color:${info.onExam ? "var(--gold)" : "var(--muted)"}">
           <div class="emoji">${info.onExam ? "🎯" : "🚫"}</div>
           <h3>${info.label}${info.onExam ? "" : " (not on exam)"}</h3>
           <p>${escapeHtml(info.desc)}<br><b>${n}</b> question${n === 1 ? "" : "s"} in current set</p></button>`;
@@ -193,7 +193,7 @@ function sciRenderQ() {
   app.innerHTML = `
     <div class="game-head"><h2>${title}</h2>${timerHtml}</div>
     <div class="controls">
-      <span style="font-size:.85rem;color:#6b5d4a">Question ${s.idx + 1} of ${s.items.length}</span>
+      <span style="font-size:.85rem;color:var(--muted)">Question ${s.idx + 1} of ${s.items.length}</span>
       <span style="flex:1"></span>
       <button class="btn" onclick="${s.timed ? "sciQuitExam()" : "sciHome()"}">${s.timed ? "Quit" : "Menu"}</button>
     </div>
@@ -301,7 +301,7 @@ function sciRenderFlash() {
   app.innerHTML = `
     <div class="game-head"><h2>🃏 Flashcards</h2>
       <div class="scoreboard">Card ${sciFlash.idx + 1} of ${sciFlash.items.length}</div></div>
-    <div class="controls"><span style="font-size:.85rem;color:#6b5d4a">Tap card to flip</span>
+    <div class="controls"><span style="font-size:.85rem;color:var(--muted)">Tap card to flip</span>
       <span style="flex:1"></span><button class="btn" onclick="sciHome()">Menu</button></div>
     <div class="flashcard" id="flashcard" onclick="flipCard()">
       <div class="flash-inner">
@@ -432,7 +432,7 @@ function sciDiagrams() {
     <div class="controls"><button class="btn" onclick="sciHome()">← Science menu</button></div>
     <div class="game-head"><h2>✏️ Diagram Checklist</h2>
       <div class="scoreboard"><b id="diagCount">${done}</b> / ${SCIENCE_DIAGRAMS.length} I can draw</div></div>
-    <p style="font-size:.85rem;color:#6b5d4a;margin:0 0 1rem">
+    <p style="font-size:.85rem;color:var(--muted);margin:0 0 1rem">
       These diagrams are tested on the exam but can't be drilled by multiple choice.
       For each one, make sure you can draw it with every part below, then tick it off.</p>
     <div id="diagList">${SCIENCE_DIAGRAMS.map(sciDiagramCard).join("")}</div>`;
